@@ -58,14 +58,14 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Adicione a ação para "Entrar" aqui
+                   
                   },
                   child: Text('Entrar', style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
-                    // Adicione a ação para "Esqueci a senha" aqui
+                    
                   },
                   child: Text('Esqueci a senha', style:TextStyle(fontSize:18, color: Colors.green[900])),
                 ),
