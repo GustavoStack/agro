@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_ong/utils/app_routes.dart'; // Importe o arquivo de rotas
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  // Instância do FirebaseAuth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signInWithEmailAndPassword(BuildContext context, String email, String password) async {
+    try {
+      // Autenticar com e-mail e senha
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Navegar para a tela de chat após o login bem-sucedido
+      Navigator.pushReplacementNamed(context, AppRoutes.chat); // Aqui é onde a navegação ocorre
+      // Exibir um diálogo ou uma snackbar indicando que o login foi bem-sucedido
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login bem-sucedido!'),
+        ),
+      );
+    } catch (e) {
+      // Lidar com erros de autenticação
+      print('Erro ao fazer login: $e');
+      // Exibir um diálogo ou uma snackbar indicando que ocorreu um erro ao fazer login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao fazer login: $e'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String _email = '';
+    String _password = '';
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -37,12 +69,14 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 TextField(
+                  onChanged: (value) => _email = value,
                   decoration: InputDecoration(
                     labelText: 'Email',
                   ),
                 ),
                 const SizedBox(height: 26),
                 TextField(
+                  onChanged: (value) => _password = value,
                   decoration: InputDecoration(
                     labelText: 'Senha',
                   ),
@@ -57,19 +91,16 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  onPressed: () {
-                   
-                  },
+                  onPressed: () => _signInWithEmailAndPassword(context, _email, _password),
                   child: Text('Entrar', style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
-                    
+                    // lógica para redefinir a senha do usuário aqui
                   },
-                  child: Text('Esqueci a senha', style:TextStyle(fontSize:18, color: Colors.green[900])),
+                  child: Text('Esqueci a senha', style: TextStyle(fontSize: 18, color: Colors.green[900])),
                 ),
-                
               ],
             ),
           ),

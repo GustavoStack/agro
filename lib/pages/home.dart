@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_ong/route_transition.dart'; 
 import 'package:my_ong/pages/login_page.dart';
+import 'package:my_ong/pages/register_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
                 Spacer(flex: 2),
                 Image.asset('assets/images/logo_complete.png', height: 120),
                 Text(
-                  'Bem Vindo ao Agro!',
+                  'Bem Vindo ao AgroGPT!',
                   style: TextStyle(fontSize: 24, color: Color(0xFF34344E)),
                   textAlign: TextAlign.center,
                 ),
@@ -54,7 +55,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    
+                    Navigator.of(context).push(createRoute(RegisterPage()));
                   },
                   child: Text(
                     'Criar uma conta',
